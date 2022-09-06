@@ -58,7 +58,7 @@ jobs:
         uses: docker/build-push-action@v3.1.1
         if: steps.filter.outputs.build == 'true' || ( github.event_name == 'release' && github.event.action == 'published' )
         with:
-          platforms: linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64/v8
+          platforms: linux/amd64,linux/arm/v7,linux/arm64/v8
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
           push: ${{ github.event_name != 'pull_request' }}
