@@ -3,7 +3,7 @@ FROM python:3.9-slim-buster AS development_build
 ARG UID=1000
 ARG GID=1000
 
-ENV DJANGO_ENV=${DJANGO_ENV} \
+ENV \
   # python:
   PYTHONFAULTHANDLER=1 \
   PYTHONUNBUFFERED=1 \
@@ -18,7 +18,11 @@ ENV DJANGO_ENV=${DJANGO_ENV} \
   POETRY_NO_INTERACTION=1 \
   POETRY_VIRTUALENVS_CREATE=false \
   POETRY_CACHE_DIR='/var/cache/pypoetry' \
-  POETRY_HOME='/usr/local'
+  POETRY_HOME='/usr/local' \
+  # uvicorn:
+  APP_BIND_IP=0.0.0.0 \
+  APP_PORT=8000
+
 
 RUN apt-get update && apt-get upgrade -y \
   && apt-get install --no-install-recommends -y \
@@ -44,4 +48,4 @@ USER scraper
 
 COPY --chown=scraper:scraper ./app /app/app
 
-ENTRYPOINT ["python", "-m", "uvicorn", "app.main:app"]
+ENTRYPOINT ["python", "-m", "uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000"]
