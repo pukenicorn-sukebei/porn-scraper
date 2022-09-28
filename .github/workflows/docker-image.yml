@@ -5,9 +5,9 @@ permissions:
   packages: write
 
 on:
-#  push:
-#    branches:
-#      - '*'
+  push:
+    branches:
+      - main
 #    tags:
 #      - 'v*.*.*'
   pull_request:
@@ -43,6 +43,7 @@ jobs:
         with:
           images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
           tags: |
+            type=edge,branch=main
             type=ref,event=branch
             type=ref,event=pr
             type=semver,pattern={{version}}
