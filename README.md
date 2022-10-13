@@ -3,6 +3,9 @@
 ### Development
 Install Poetry
 
+- macOS
+  > brew install poetry
+
 - Linux, macOS, Windows (WSL)
   > curl -sSL https://install.python-poetry.org | python3 -
 

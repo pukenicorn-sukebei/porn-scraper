@@ -15,9 +15,9 @@ uvicorn = "^0.18.3"
 [tool.poetry.group.dev.dependencies]
 taskipy = "^1.10.3"
 
-# poetry run task xxxxx
 [tool.taskipy.tasks]
-generate = "python openapi/generate.py"
+# poetry run task xxxxx
+generate = "python -m openapi.generate"
 
 
 [build-system]
