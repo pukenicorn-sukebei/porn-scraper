@@ -169,6 +169,14 @@ optional = false
 python-versions = ">=3.5"
 
 [[package]]
+name = "openapi-generator-cli"
+version = "4.3.1"
+description = "CLI for openapi generator"
+category = "dev"
+optional = false
+python-versions = "*"
+
+[[package]]
 name = "packaging"
 version = "21.3"
 description = "Core utilities for Python packages"
@@ -369,7 +377,7 @@ standard = ["colorama (>=0.4)", "httptools (>=0.5.0)", "python-dotenv (>=0.13)",
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.8"
-content-hash = "f18612e50e4bd3afed6d179cfe6193181706ab400894d6e4aa28ec005fa8d73f"
+content-hash = "a0356c72a1963f4dc6d1c146136ee1110ebb34fc5d4bf98a7993dbe3d936637d"
 
 [metadata.files]
 anyio = [
@@ -499,6 +507,10 @@ lxml = [
 mslex = [
     {file = "mslex-0.3.0-py2.py3-none-any.whl", hash = "sha256:380cb14abf8fabf40e56df5c8b21a6d533dc5cbdcfe42406bbf08dda8f42e42a"},
     {file = "mslex-0.3.0.tar.gz", hash = "sha256:4a1ac3f25025cad78ad2fe499dd16d42759f7a3801645399cce5c404415daa97"},
+]
+openapi-generator-cli = [
+    {file = "openapi-generator-cli-4.3.1.tar.gz", hash = "sha256:b87f0aeac5b3c23e135253efc46bddc98c72f386b3b2e3df54324d78aa57fd13"},
+    {file = "openapi_generator_cli-4.3.1-py2.py3-none-any.whl", hash = "sha256:1c943f4692c2ae08b714a22347d5dd42b722d509fa30a098dca4b78ec59f75d5"},
 ]
 packaging = [
     {file = "packaging-21.3-py3-none-any.whl", hash = "sha256:ef103e05f519cdc783ae24ea4e2e0f508a9c99b2d4969652eed6a2e1ea5bd522"},
