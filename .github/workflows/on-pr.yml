@@ -1,8 +1,12 @@
 name: On PR
 
-#permissions:
-#  pull-requests: write
-#  contents: write
+permissions:
+  pull-requests: write
+  contents: write
+
+concurrency:
+  group: pr
+  cancel-in-progress: true
 
 on:
   push:

@@ -1,0 +1,67 @@
+name: Build and publish packages
+
+permissions:
+  contents: read
+  packages: write
+
+concurrency:
+  group: publish
+  cancel-in-progress: true
+
+on:
+  push:
+    branches:
+      - main
+  release:
+    types:
+      - published
+  workflow_dispatch:
+
+
+jobs:
+  test:
+    name: Run test
+    uses: pukenicorn/gh-workflows/.github/workflows/test.yml@main
+    with:
+      language: 'python'
+
+  publish:
+    name: Build and publish docker image
+    needs: [test]
+    uses: pukenicorn/gh-workflows/.github/workflows/publish-docker.yml@main
+    with:
+      registry: ghcr.io
+      ignore_file_changes: ${{ (github.event_name == 'release' && github.event.action == 'published') || github.event_name == 'workflow_dispatch' }}
+    secrets:
+      REGISTRY_USERNAME: ${{ github.actor }}
+      REGISTRY_PASSWORD: ${{ github.token }}
+
+  publish-client-ts-axios:
+    name: Build and publish typescrkipt axios client
+    needs: [test]
+    uses: pukenicorn/gh-workflows/.github/workflows/publish-pkg.yml@main
+    with:
+      base_language: python
+      package_language: node
+      package_path: ./generated/ts/axios
+      post_setup_command: run task generate:client-ts-axios
+      package_registry: https://npm.pkg.github.com
+      package_version: ${{ github.event.release.tag_name }}
+    secrets:
+      PACKAGE_REGISTRY_TOKEN: ${{ github.token }}
+    if: github.event_name == 'release' && github.event.action == 'published'
+
+  publish-client-ts-nestjs:
+    name: Build and publish typescript nestjs client
+    needs: [test]
+    uses: pukenicorn/gh-workflows/.github/workflows/publish-pkg.yml@main
+    with:
+      base_language: python
+      package_language: node
+      package_path: ./generated/ts/nestjs
+      post_setup_command: run task generate:client-ts-nestjs
+      package_registry: https://npm.pkg.github.com
+      package_version: ${{ github.event.release.tag_name }}
+    secrets:
+      PACKAGE_REGISTRY_TOKEN: ${{ github.token }}
+    if: github.event_name == 'release' && github.event.action == 'published'
