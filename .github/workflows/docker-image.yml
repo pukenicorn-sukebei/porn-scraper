@@ -5,9 +5,10 @@ permissions:
   packages: write
 
 on:
-  push:
-    branches:
-      - main
+# TODO uncomment push
+#  push:
+#    branches:
+#      - main
 #  pull_request:
 #    branches:
 #      - '*'

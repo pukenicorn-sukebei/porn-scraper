@@ -1,0 +1,23 @@
+name: On PR
+
+#permissions:
+#  pull-requests: write
+#  contents: write
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+    inputs:
+      pr-number:
+        description: ID of PR to be run against
+        type: string
+        required: true
+
+jobs:
+  on-pr:
+    uses: pukenicorn/gh-workflows/.github/workflows/on-pr.yml@main
+    with:
+      language: python
