@@ -15,7 +15,7 @@ on:
         required: true
 
 jobs:
-  automerge:
+  auto-merge-dependabot:
     runs-on: ubuntu-latest
     steps:
       - name: Automatically Merge Dependabot

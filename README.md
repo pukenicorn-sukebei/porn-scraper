@@ -10,7 +10,8 @@ Install Poetry
   > curl -sSL https://install.python-poetry.org | python3 -
 
 - Windows (Powershell)
-  > (Invoke-WebRequest -Uri https://install.python-poetry.org -UseBasicParsing).Content | py -
+  > (Invoke-WebRequest -Uri https://install.python-poetry.org -UseBasicParsing).Content | python -
+  - Add `%APPDATA%\Python\Scripts` to `%PATH%`
 
 
 Install Dependencies
