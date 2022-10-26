@@ -1,20 +1,18 @@
-name: Build and publish packages
+name: Test, build and publish packages
 
 permissions:
   contents: read
   packages: write
 
 concurrency:
-  group: publish
+  group: publish-${{ github.event_name }}
   cancel-in-progress: true
 
 on:
   push:
-    branches:
-      - main
+    branches: [main]
   release:
-    types:
-      - published
+    types: [published]
   workflow_dispatch:
 
 
@@ -23,45 +21,29 @@ jobs:
     name: Run test
     uses: pukenicorn/gh-workflows/.github/workflows/test.yml@main
     with:
-      language: 'python'
+      language: python
 
-  publish:
+  publish-docker:
     name: Build and publish docker image
     needs: [test]
     uses: pukenicorn/gh-workflows/.github/workflows/publish-docker.yml@main
     with:
       registry: ghcr.io
-      ignore_file_changes: ${{ (github.event_name == 'release' && github.event.action == 'published') || github.event_name == 'workflow_dispatch' }}
+      ignore-file-changes: ${{ (github.event_name == 'release' && github.event.action == 'published') || github.event_name == 'workflow_dispatch' }}
     secrets:
       REGISTRY_USERNAME: ${{ github.actor }}
-      REGISTRY_PASSWORD: ${{ github.token }}
 
   publish-client-ts-axios:
-    name: Build and publish typescrkipt axios client
+    name: Build and publish typescript axios client
     needs: [test]
     uses: pukenicorn/gh-workflows/.github/workflows/publish-pkg.yml@main
     with:
-      base_language: python
-      package_language: node
-      package_path: ./generated/ts/axios
-      post_setup_command: run task generate:client-ts-axios
-      package_registry: https://npm.pkg.github.com
-      package_version: ${{ github.event.release.tag_name }}
-    secrets:
-      PACKAGE_REGISTRY_TOKEN: ${{ github.token }}
-    if: github.event_name == 'release' && github.event.action == 'published'
-
-  publish-client-ts-nestjs:
-    name: Build and publish typescript nestjs client
-    needs: [test]
-    uses: pukenicorn/gh-workflows/.github/workflows/publish-pkg.yml@main
-    with:
-      base_language: python
-      package_language: node
-      package_path: ./generated/ts/nestjs
-      post_setup_command: run task generate:client-ts-nestjs
-      package_registry: https://npm.pkg.github.com
-      package_version: ${{ github.event.release.tag_name }}
-    secrets:
-      PACKAGE_REGISTRY_TOKEN: ${{ github.token }}
+      base-language: python
+      package-language: node
+      package-language-cache: none
+      package-path: ./generated/typescript
+      post-setup-command: generate:client-ts-axios
+      package-name: "@${{ github.repository }}-client"
+      package-registry: https://npm.pkg.github.com
+      package-version: ${{ github.event.release.tag_name }}
     if: github.event_name == 'release' && github.event.action == 'published'

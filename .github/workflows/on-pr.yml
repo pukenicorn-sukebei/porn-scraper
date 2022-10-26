@@ -1,16 +1,14 @@
-name: On PR
+name: Test and check for dependabot
 
 permissions:
   pull-requests: write
   contents: write
 
 concurrency:
-  group: pr
+  group: publish-${{ github.head_ref || github.ref_name }}
   cancel-in-progress: true
 
 on:
-  push:
-    branches: [main]
   pull_request:
     branches: [main]
   workflow_dispatch:
@@ -20,8 +18,16 @@ on:
         type: string
         required: true
 
+
 jobs:
-  on-pr:
-    uses: pukenicorn/gh-workflows/.github/workflows/on-pr.yml@main
+  test:
+    uses: pukenicorn/gh-workflows/.github/workflows/test.yml@main
     with:
       language: python
+
+  dependabot:
+    needs: [test]
+    uses: pukenicorn/gh-workflows/.github/workflows/dependabot.yml@main
+    with:
+      pr-number: ${{ inputs.pr_number }}
+    if: github.event_name == 'workflow_dispatch'

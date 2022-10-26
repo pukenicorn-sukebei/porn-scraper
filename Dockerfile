@@ -1,4 +1,4 @@
-FROM python:3.9-slim-buster AS development_build
+FROM python:3.10-slim-buster AS development_build
 
 ARG UID=1000
 ARG GID=1000
@@ -14,7 +14,7 @@ ENV \
   PIP_DISABLE_PIP_VERSION_CHECK=1 \
   PIP_DEFAULT_TIMEOUT=100 \
   # poetry:
-  POETRY_VERSION=1.1.14 \
+#  POETRY_VERSION=1.1.14 \
   POETRY_NO_INTERACTION=1 \
   POETRY_VIRTUALENVS_CREATE=false \
   POETRY_CACHE_DIR='/var/cache/pypoetry' \
@@ -40,12 +40,13 @@ RUN groupadd -g "${GID}" -r scraper \
   && useradd -d '/app' -g scraper -l -r -u "${UID}" scraper \
   && chown scraper:scraper -R '/app'
 
-COPY --chown=scraper:scraper ./poetry.lock ./pyproject.toml /app/
+COPY --chown=nobody:nobody ./poetry.lock ./pyproject.toml /app/
 
-RUN poetry install --no-dev --no-interaction --no-ansi
+RUN poetry install --without test --no-interaction --no-ansi
 
-USER scraper
+USER nobody
 
-COPY --chown=scraper:scraper ./app /app/app
+COPY --chown=nobody:nobody ./app /app/app
+COPY --chown=nobody:nobody ./tasks /app/tasks
 
 ENTRYPOINT ["python", "-m", "uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000"]
