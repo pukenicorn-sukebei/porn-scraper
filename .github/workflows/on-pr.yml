@@ -5,7 +5,7 @@ permissions:
   contents: write
 
 concurrency:
-  group: publish-${{ github.head_ref || github.ref_name }}
+  group: pr-${{ github.head_ref || github.ref_name }}
   cancel-in-progress: true
 
 on:
