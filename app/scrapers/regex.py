@@ -15,7 +15,7 @@ guesser_regex: dict[str, re.Pattern] = {
 extractor_regex = {
     '1pondo': re.compile(r'(\d{6})[ -_](\d{3})'),
     'heyzo': re.compile(r'(?:heyzo)?-?(\d{3,})', re.IGNORECASE),
-    'general': re.compile(r'((?:[A-z]{2,6})|(?:t-?28))(?: |-|_)?(\d+)(e|z)?', re.IGNORECASE)
+    'general': re.compile(r'((?:[A-Za-z]{2,6})|(?:t-?28))(?: |-|_)?(\d+)(e|z)?', re.IGNORECASE)
 }
 
 
