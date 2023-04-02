@@ -1,0 +1,19 @@
+name: Test
+
+permissions:
+  packages: read
+
+concurrency:
+  group: main
+  cancel-in-progress: true
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  test:
+    name: Run test
+    uses: pukenicorn/gh-workflows/.github/workflows/test.yml@main
+    with:
+      language: python
