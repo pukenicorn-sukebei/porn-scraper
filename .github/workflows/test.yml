@@ -1,0 +1,32 @@
+name: Test publish
+
+permissions:
+  contents: read
+  packages: write
+
+concurrency:
+  group: publish-${{ github.event_name }}
+  cancel-in-progress: true
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: Version to the publish package
+        type: string
+        required: true
+
+jobs:
+  publish-client-ts-axios:
+    permissions:
+      contents: write
+    name: Build and publish typescript axios client
+    uses: pukenicorn/gh-workflows/.github/workflows/publish-pkg.yml@main
+    with:
+      base-language: python
+      package-language: dart
+      package-language-cache: none
+      package-path: ./generated
+      post-setup-command: generate:spec
+      package-name: "porn_scraper_client"
+      package-version: ${{ github.event.release.tag_name || inputs.version }}
