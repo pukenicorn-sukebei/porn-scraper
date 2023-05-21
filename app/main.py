@@ -1,7 +1,14 @@
+import logging
+
 from fastapi import FastAPI
 from starlette.middleware.cors import CORSMiddleware
 
 from app.api import api_router
+
+logging.basicConfig(
+    level=logging.DEBUG,
+    format='%(asctime)s - [%(levelname)s][%(name)s] %(message)s',
+)
 
 app = FastAPI()
 

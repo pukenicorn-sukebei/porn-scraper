@@ -16,3 +16,7 @@ Install Poetry
 
 Install Dependencies
 > poetry install
+
+---
+
+Scraper codebase is a modified version of [hibikidesu/javscraper](https://github.com/hibikidesu/javscraper)
