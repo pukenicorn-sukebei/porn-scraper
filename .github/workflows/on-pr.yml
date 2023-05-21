@@ -29,5 +29,5 @@ jobs:
     needs: [test]
     uses: pukenicorn/gh-workflows/.github/workflows/dependabot.yml@main
     with:
-      pr-number: ${{ inputs.pr_number }}
+      pr-number: ${{ inputs.pr_number || 0 }}
     if: github.event_name == 'pull_request' || github.event_name == 'workflow_dispatch'
