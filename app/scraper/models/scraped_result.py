@@ -8,6 +8,7 @@ from javscraper.utils import JAVResult
 class ScrapedResult:
     code: str
     actors: list[str]
+    directors: list[str]
     tags: list[str]
     sample_video_urls: list[str]
     sample_image_urls: list[str]

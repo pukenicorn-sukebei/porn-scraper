@@ -149,6 +149,7 @@ class BaseScraper:
         return ScrapedResult(
             code=handle_xpath(self._content_result_xpath.code),
             actors=handle_xpath(self._content_result_xpath.actors, list),
+            directors=handle_xpath(self._content_result_xpath.directors, list),
             name=handle_xpath(self._content_result_xpath.name),
             description=handle_xpath(self._content_result_xpath.description),
             tags=handle_xpath(self._content_result_xpath.tags, list),
