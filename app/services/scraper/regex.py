@@ -1,8 +1,9 @@
 import re
+from typing import Dict
 
 import javscraper
 
-guesser_regex: dict[str, re.Pattern] = {
+guesser_regex: Dict[str, re.Pattern] = {
     's1': re.compile(r'^(?:ssis|ssni|sivr|ofje)[\d\s-]', re.IGNORECASE),
     'sod': re.compile(r'^(?:stars?|sdnm|sdmm|sddr|sdab|sdjs|sdde|sdmu|mogi|dsvr|mfsh)[\d\s-]', re.IGNORECASE),
 

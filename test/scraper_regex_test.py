@@ -3,10 +3,10 @@ from typing import List
 
 from pydantic.dataclasses import dataclass
 
-from app.scrapers.regex import normalize_general_name
+from app.services.scraper.regex import normalize_general_name
 
 
-class TestRegex(unittest.TestCase):
+class ScraperRegexTest(unittest.TestCase):
     def test_normalize_general_name(self):
         @dataclass
         class TestCase:
