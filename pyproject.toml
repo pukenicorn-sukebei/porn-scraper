@@ -9,7 +9,7 @@ readme = "README.md"
 [tool.poetry.dependencies]
 python = "^3.10"
 javscraper = "^1.1.8"
-fastapi = "^0.114.0"
+fastapi = "^0.114.2"
 uvicorn = "^0.30.6"
 taskipy = "^1.13.0"
 pyyaml = "^6.0"
